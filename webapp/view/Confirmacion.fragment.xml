@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="Confirmacion" title="" draggable="true" contentWidth="50%">
+		<VBox class="sapUiResponsiveMargin" alignContent="Center" alignItems="Center" justifyContent="Center">
+			<Table items="{Succes>/}">
+				<items>
+					<ColumnListItem type="Inactive">
+						<cells>
+							<Text text="¿Desea convertir todas las posiciones diferidas de este pedido en VOR?"/>
+						</cells>
+						<!--<Text text="{datosss>SubElemento}"/>-->
+						<!--<Input value="{datosss>Valor}" editable="true" textAlign="Right" width="90px"-->
+						<!--	liveChange="separadorCarrito" placeholder="0 "/>-->
+					</ColumnListItem>
+				</items>
+				<columns>
+					<Column>
+						<header>
+							<Label text="Descripción"/>
+						</header>
+					</Column>
+				</columns>
+			</Table>
+		</VBox>
+		<buttons>
+			<Button text="Si" press="openCuadrosi"/>
+			<Button text="No" press="openCuadrono"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

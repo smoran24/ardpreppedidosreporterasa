@@ -1,0 +1,185 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="AR_DP_REP_PEDIDOSREPORTE_RASA.AR_DP_REP_PEDIDOSREPORTE_RASA.controller.principal" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<content>
+						<Panel>
+							<HBox>
+								<VBox alignItems="Stretch" direction="Column" fitContainer="false" width="22%" justifyContent="Start" visible="true" displayInline="false"
+									id="dealer1">
+									<items>
+										<Text text="Dealer" width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+										<ComboBox xmlns="sap.m" id="dealer" placeholder="Solicitante" width="100%" items="{path: 'cliente>/'}" loadItems="ConsultaDestinatario"
+											change="ConsultaDestinatario">
+											<items>
+												<core:Item xmlns:core="sap.ui.core" key="{cliente>SOLICITANTE}" text="{cliente>NOMBRE_SOLICITANTE}"/>
+											</items>
+										</ComboBox>
+									</items>
+								</VBox>
+								<HBox width="3%" id="espacio1"/>
+								<VBox alignItems="Stretch" direction="Column" fitContainer="false" width="22%" justifyContent="Start" visible="true" displayInline="false">
+									<items>
+										<Text text="Pedido Web" width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+										<Input width="100%" placeholder="" id="NPedido"/>
+									</items>
+								</VBox>
+								<HBox width="3%"/>
+								<VBox alignItems="Stretch" direction="Column" fitContainer="false" width="22%" justifyContent="Start" visible="true" displayInline="false">
+									<items>
+										<Text text="Fecha Pedido " width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+										<DateRangeSelection id="Fecha" change="fechas"/>
+									</items>
+								</VBox>
+								<HBox width="3%"/>
+								<VBox alignItems="Stretch" direction="Column" fitContainer="false" width="22%" justifyContent="Start" visible="true" displayInline="false">
+									<items>
+										<Text text="Tipo Pedido" width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+										<ComboBox xmlns="sap.m" id="TPedido" placeholder="Tipo Pedido" width="100%" items="{path: 'Tpedido>/'}">
+											<items>
+												<core:Item xmlns:core="sap.ui.core" key="{Tpedido>AUART}" text="{Tpedido>BEZEI}"/>
+											</items>
+										</ComboBox>
+									</items>
+								</VBox>
+								<HBox width="3%"/>
+							</HBox>
+							<VBox height="10px"/>
+							<HBox>
+								<VBox alignItems="Stretch" direction="Column" fitContainer="false" width="22%" justifyContent="Start" visible="true" displayInline="false">
+									<items>
+										<Text text="Destinatario" width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+										<ComboBox xmlns="sap.m" id="Destinatario" placeholder="Destinatario" width="100%" items="{path: 'Destinatarios>/'}">
+											<items>
+												<core:Item xmlns:core="sap.ui.core" key="{Destinatarios>DESTINATARIO}" text="{Destinatarios>DIRECCION}"/>
+											</items>
+										</ComboBox>
+									</items>
+								</VBox>
+								<HBox width="3%"/>
+								<VBox alignItems="Stretch" direction="Column" fitContainer="false" width="22%" justifyContent="Start" visible="true" displayInline="false">
+									<items>
+										<Text text="Etapa" width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+										<ComboBox xmlns:sap.ui.core="sap.ui.core" placeholder="Etapa" width="100%" id="Epedido" change="onChangeCmb" selectionChange="formaPago">
+											<items>
+												<sap.ui.core:ListItem text="Diferido" key="01"/>
+												<sap.ui.core:ListItem text="Pendiente" key="02"/>
+												<sap.ui.core:ListItem text="Preparación" key="03"/>
+												<sap.ui.core:ListItem text="Preparado" key="04"/>
+												<sap.ui.core:ListItem text="Remitido" key="05"/>
+												<sap.ui.core:ListItem text="Proximo a Facturar" key="06"/>
+												<sap.ui.core:ListItem text="Facturado" key="07"/>
+												<sap.ui.core:ListItem text="Rechazado" key="08"/>
+											</items>
+										</ComboBox>
+									</items>
+								</VBox>
+								<HBox width="3%"/>
+								<VBox alignItems="Stretch" direction="Column" fitContainer="false" width="10%" justifyContent="Start" visible="true" displayInline="false">
+									<items>
+										<Text text=" " width="100%" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+										<Button text="Buscar" press="BusquedaPedido"/>
+									</items>
+								</VBox>
+								<HBox width="3%"/>
+							</HBox>
+						</Panel>
+						<Panel>
+							<Table mode="MultiSelect" items="{pedidos>/}" width="auto" id="tMaestra" growing="true" growingScrollToLoad="true" growingThreshold="100"
+								sticky="ColumnHeaders" busyIndicatorDelay="{pedidos>/SELECT}" selectionChange="AgruparMateriales">
+								<headerToolbar>
+									<OverflowToolbar>
+										<ObjectIdentifier id="resumenTabla" title="Pedidos"/>
+										<ToolbarSpacer/>
+										<Button type="Transparent" text=" Enviar" icon="sap-icon://email" press="EnvioCorreo"/>
+										<Button type="Transparent" text=" Descargar" icon="sap-icon://excel-attachment" press="downloadExcel"/>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column hAlign="Left" width="auto">
+										<Text text="Pedido Web"/>
+									</Column>
+									<Column hAlign="Left" width="auto">
+										<Text text="Pedido Dealer"/>
+									</Column>
+									<Column hAlign="Left" width="auto" id="solicitantev" visible="true">
+										<Text text="Solicitante"/>
+									</Column>
+									<Column hAlign="Left" width="auto">
+										<Text text="Tipo de Pedido"/>
+									</Column>
+									<Column hAlign="Left" width="auto">
+										<Text text="Destinatario"/>
+									</Column>
+									<Column hAlign="Left" width="auto">
+										<Text text="Etapa Pedido"/>
+									</Column>
+									<Column hAlign="Left" width="auto">
+										<Text text="Material"/>
+									</Column>
+									<Column hAlign="Left" width="auto">
+										<Text text="Cantidad"/>
+									</Column>
+									<Column hAlign="Left" width="auto">
+										<Text text="PNC Unitario"/>
+									</Column>
+									<Column hAlign="Left" width="auto">
+										<Text text="Fecha de Pedido"/>
+									</Column>
+									<Column hAlign="Left" width="auto">
+										<Text text="Bulto"/>
+									</Column>
+									<Column hAlign="Left" width="auto">
+										<Text text="Remito"/>
+									</Column>
+									<Column hAlign="Left" width="auto">
+										<Text text="Despacho"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem >
+										<cells>
+											<Text text="{path: 'pedidos>Pedido' }"/>
+											<Text text="{path: 'pedidos>Pedidodealer' }"/>
+											<Text text="{path: 'pedidos>Nombre' }"/>
+											<Text text="{path: 'pedidos>Tipo' }"/>
+											<Text text="{path: 'pedidos>NOMBREDestinatario' }"/>
+											<Text text="{path: 'pedidos>Etapapedido' }"/>
+											<Text text="{path: 'pedidos>Material' } {path: 'pedidos>Descripcion' }"/>
+											<Text text="{path: 'pedidos>Cantidad'}"/>
+											<Text text="{path: 'pedidos>Pcm' }"/>
+											<Text text="{path: 'pedidos>Fecha' }"/>
+											<Text text="{path: 'pedidos>Bulto' }"/>
+											<Text text="{path: 'pedidos>Remito' }"/>
+											<Text text="{path: 'pedidos>Despacho' }"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</Panel>
+					</content>
+					<customHeader>
+						<Bar class="sapContrastPlus" design="Header" visible="false">
+							<contentLeft>
+								<VBox width="15px"/>
+								<Text text="Reporte Pedidos" class="tituloHead"/>
+								<!--Image height="28px" id="lNissan"/-->
+							</contentLeft>
+						</Bar>
+					</customHeader>
+					<footer >
+						<Bar class="sapContrast sapContrastPlus">
+							<contentRight>
+								<!--<Button  text="verificar" type="Accept" press="consultaconvetidos" icon="sap-icon://add" class="sapUiSmallMarginEnd"/>-->
+								<Button id="Agregar" text="Convertir a VOR" type="Accept" press="validaciones" icon="sap-icon://add" class="sapUiSmallMarginEnd"/>
+								<Button id="atras" text="Salir" type="Reject" press="onSalir" icon="sap-icon://log" class="sapUiSmallMarginEnd"/>
+							</contentRight>
+						</Bar>
+					</footer>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

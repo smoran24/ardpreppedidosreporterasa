@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="IngresoVinSi" title="" draggable="true" contentWidth="50%">
+		<VBox class="sapUiResponsiveMargin" alignContent="Center" alignItems="Center" justifyContent="Center">
+			<Table items="{Datosss>/}">
+				<items>
+					<ColumnListItem type="Inactive">
+						<cells>
+							<!--	<Text text="¿Desea convertir todas las posiciones diferidas de este pedido en VOR?"/>-->
+							<Text text="{Datosss>Material}"/>
+							<Input value="{Datosss>VIN}" editable="true" textAlign="Right" id="vintxt" width="60%" placeholder="0 " change="IngresoVin" maxLength="17"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+				<columns>
+					<Column>
+						<header>
+							<Label text="Descripción"/>
+						</header>
+					</Column>
+					<Column>
+						<header>
+							<Label text="VIN"/>
+						</header>
+					</Column>
+				</columns>
+			</Table>
+		</VBox>
+		<buttons>
+			<Button text="Si" press="validargrabar" id="validasi"/>
+			<Button text="No" press="limpiarsi"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
